@@ -9,8 +9,17 @@ async function bootstrap() {
 
   app.useGlobalPipes( // Validacion de global pipes para los decoradores de class validator
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
+
+      /** va a forzar a  parametros enviados , que sean del tipo y del nombre indicado, sin admitir parametros extras*/
+      whitelist: true, 
+      forbidNonWhitelisted: true, 
+
+      /** Transforma la data a su tipo segun solicitado en la interfaz** */
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true
+      }
+      
     }),
   )
   await app.listen(3000);

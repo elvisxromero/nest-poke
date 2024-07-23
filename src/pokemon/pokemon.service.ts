@@ -5,6 +5,7 @@ import { isValidObjectId, Model } from 'mongoose';
 import { Pokemon } from './entities/pokemon.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { throwError } from 'rxjs';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class PokemonService {
@@ -26,8 +27,15 @@ export class PokemonService {
     
   }
 
-  findAll() {
-    return `This action returns all pokemon`;
+  findAll(paginationDto: PaginationDto) {
+    const { limit=10, offset=0 } = paginationDto;
+    return this.PokemonModel.find()
+            .limit(limit) // Tomo el limite que me envian por parametro
+            .skip(offset) // Tomo el offset que me envian por parametro
+            .sort({
+              no: 1 // Ordeno ascendente por numero ( campo no)
+            })
+            .select('-__v')// Defino los campos a devolver , el menos - indica que es no se mostrará
   }
 
   async findOne(termino_busqueda: string) {
