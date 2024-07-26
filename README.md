@@ -29,11 +29,21 @@ docker-compose up -d
 npm start run:dev
 ```
 
-7.- Cargar la base de datos con registros de prueba (seed) 1000 registros
+8.- Cargar la base de datos con registros de prueba (seed) 1000 registros
 ```
 http://localhost:3000/api/v2/seed
 ```
 
+#Build de produccion
+1.- Crear el archivo 
+```
+.env.prod
+```
+2.- Llenar las variables de entorno en produccion
+3.- Crear la nueva imagen
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
 
 ## Stack usado
 * MongoDB
